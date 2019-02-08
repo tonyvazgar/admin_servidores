@@ -75,14 +75,16 @@ Vagrant.configure("2") do |config|
   config.vm.define "client" do |clock|
     clock.vm.box = "ubuntu/bionic64"
     clock.vm.network "private_network", ip: "192.168.0.20"
+    clock.vm.network "forwarded_port", guest: 8080, host: 80
     clock.vm.provision "shell", inline: <<-SHELL
         echo "client" > /etc/hostname
         hostname -b client
         echo "192.168.0.10        server" >> /etc/hosts
-        sudo apt-get update
-        sudo apt-get install -y git
-        git clone https://github.com/tonyvazgar/Cloud-based-Clock.git
-        rm Cloud-based-Clock/server/*.js
+        echo "***sudo apt-get update***"; sudo apt-get update
+        echo "***sudo apt-get install -y git***"; sudo apt-get install -y git
+        echo "***git clone https://github.com/tonyvazgar/Cloud-based-Clock.git***"; git clone https://github.com/tonyvazgar/Cloud-based-Clock.git
+        echo "***rm Cloud-based-Clock/server/*.js***"; rm Cloud-based-Clock/server/*.js
+        #echo "--> curl http://192.168.0.10:3000";  curl http://192.168.0.10:3000
     SHELL
   end
 
@@ -94,13 +96,13 @@ Vagrant.configure("2") do |config|
         echo "server" > /etc/hostname
         hostname -b server
         echo "192.168.0.20        client" >> /etc/hosts
-        sudo apt-get update
-        sudo apt-get install -y nodejs
-        sudo apt-get install -y npm
-        sudo apt-get install -y git
-        git clone https://github.com/tonyvazgar/Cloud-based-Clock.git
-        cd Cloud-based-Clock/server
-        rm *.json
+        echo "***> sudo apt-get update"; sudo apt-get update
+        echo "***> sudo apt-get install -y nodejs"; sudo apt-get install -y nodejs
+        echo "***> sudo apt-get install -y npm"; sudo apt-get install -y npm
+        echo "***> sudo apt-get install -y git"; sudo apt-get install -y git
+        echo "***> git clone https://github.com/tonyvazgar/Cloud-based-Clock.git"; git clone https://github.com/tonyvazgar/Cloud-based-Clock.git
+        echo "***> cd Cloud-based-Clock/server"; cd Cloud-based-Clock/server
+        echo "***> rm *.json"; rm *.json
         #node app.js
     SHELL
   end
