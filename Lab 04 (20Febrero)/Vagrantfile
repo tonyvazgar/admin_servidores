@@ -45,3 +45,15 @@ Vagrant.configure("2") do |config|
       SHELL
     end
 end
+
+# sudo iptables -A INPUT
+#               -i enp0s8
+#               -j ACCEPT
+# sudo iptables -A OUTPUT
+#               -o enp0s8
+#               -i ACCEPT
+
+#----------------------
+# sudo iptables -P INPUT ACCEPT
+#                  OUTPUT
+# sudo iptables -F
