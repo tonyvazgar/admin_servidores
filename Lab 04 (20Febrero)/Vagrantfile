@@ -53,7 +53,7 @@ end
 #               -o enp0s8
 #               -i ACCEPT
 
-#----------------------
+#--------------------------------
 # sudo iptables -P INPUT ACCEPT
 #                  OUTPUT
 # sudo iptables -F
