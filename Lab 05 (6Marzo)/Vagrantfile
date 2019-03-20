@@ -1,0 +1,41 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+ 
+  config.vm.define "apache" do |apache|
+    apache.vm.box = "ubuntu/bionic64"
+    apache.vm.network "private_network", ip: "192.168.1.2"
+    apache.vm.network "forwarded_port", guest: 443, host: 8443
+    apache.vm.network "forwarded_port", guest: 22, host: 22
+    apache.vm.provision "shell", inline: <<-SHELL
+      echo "apache" > /etc/hostname
+      hostname -b apache
+      echo "192.168.0.20        client" >> /etc/hosts
+      sudo apt-get install -y apache2
+    SHELL
+    # apache.vm.provision "shell", path: "router_setup.sh"
+    # apache.vm.provision "file", source: "console-setup", destination: "/etc/console_setup"
+    # apache.vm.provision "shell", path: "router_iptables.sh"
+  end
+
+  config.vm.define "postgresql" do |postgresql|
+    postgresql.vm.box = "ubuntu/bionic64"
+    postgresql.vm.network "private_network", ip: "20.0.2.20"
+    postgresql.vm.network "forwarded_port", guest: 22, host: 1234
+    postgresql.vm.network "forwarded_port", guest: 443, host: 8444
+    # postgresql.vm.provision "shell", path: "client_setup.sh"
+    # postgresql.vm.provision "file", source: "console-setup", destination: "/etc/console_setup"
+    # postgresql.vm.provision "shell", path: "client_iptables.sh"
+  end
+
+  config.vm.define "gateway" do |gateway|
+    gateway.vm.box = "ubuntu/bionic64"
+    gateway.vm.network "private_network", ip: "20.0.2.20"
+    gateway.vm.network "forwarded_port", guest: 5432, host: 3333
+    gateway.vm.network "forwarded_port", guest: 22, host: 1235
+    # gateway.vm.provision "shell", path: "client_setup.sh"
+    # gateway.vm.provision "file", source: "console-setup", destination: "/etc/console_setup"
+    # gateway.vm.provision "shell", path: "client_iptables.sh"
+  end
+end

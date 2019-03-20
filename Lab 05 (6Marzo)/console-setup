@@ -1,0 +1,3 @@
+XKBLAYOUT="us"
+XKBVARIANT="dvp"
+XKBOPTIONS="compose:102,numpad:shift3,kpdl:semi,keypad:atm,caps:shift"
