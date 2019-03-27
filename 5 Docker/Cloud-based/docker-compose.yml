@@ -1,0 +1,14 @@
+version: '3'
+services:
+  server:
+    build: ./server
+    ports:
+     - "3000:3000"
+    # volumes:
+    #  - .:/usr/src/app
+  # node:
+  #   image: "node:latest"
+  client:
+    build: ./client
+    ports:
+      - "80:80"
