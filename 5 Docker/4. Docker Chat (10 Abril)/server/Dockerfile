@@ -6,9 +6,11 @@ FROM golang:1.12.1
 WORKDIR /go/src/app
 COPY . .
 
+EXPOSE 80
+
 RUN go get -u github.com/chzyer/readline
 RUN go build -o main
 # RUN ./main
 
 # CMD [ "conn localhost:80" ]
-CMD ["./main"]
+CMD ["/go/src/app/main"]
