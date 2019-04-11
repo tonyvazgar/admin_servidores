@@ -1,0 +1,15 @@
+GO:
+    Para correr :
+        $ go get -u github.com/chzyer/readline 
+        $ go build -o main
+        $ ./main
+
+Docker:
+    Para ver los logs del docker en especifico
+        $ docker container ps
+        $ docker logs -f 4dockerchat10abril_server_1 (4dockerchat10abril_server_1 es el nombre del contenedor)
+    Para correr docker-compose:
+        $ docker-compose build
+        $ docker-compose up
+
+        $ docker-compose down
