@@ -4,7 +4,9 @@ services:
     build: ./server
     ports:
      - "80:80"
-  client:
+  client1:
     build: ./client
-    # ports:
-    #   - "80:80"
+  client2:
+    build: ./client
+  client3:
+    build: ./client
